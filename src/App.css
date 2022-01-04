@@ -2,37 +2,45 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Jumbotron {
+  position: relative;
+  height: 500px;
+  background: gray;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-image: url('https://codingapple.com/wp-content/uploads/2020/05/background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  border-radius: 10px;
   color: white;
+  padding: 30px;
+}
+.Jumbotron .bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+.Jumbotron .text {
+  width: 80%;
+  z-index: 1;
 }
 
-.App-link {
-  color: #61dafb;
+.col-md-4 {
+  padding: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a {
+  text-decoration: none;
+  color: gray;
+}
+
+.Select {
+  margin: auto;
+  width: 150px;
+  margin-top: 20px;
 }
