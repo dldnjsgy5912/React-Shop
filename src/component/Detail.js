@@ -5,7 +5,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
 import { 재고context } from '../App';
-
+import { Nav } from 'react-bootstrap';
+import { CSSTransition } from 'react-transition-group';
 let 박스 = styled.div`
   padding: 20px;
 `;
@@ -39,6 +40,10 @@ function Detail(props) {
   let 찾은상품 = props.신발들.find((신발) => {
     return 신발.id == id;
   });
+
+  let [누른탭, 누른탭변경] = useState(0);
+
+  let [스위치, 스위치변경] = useState(false);
 
   return (
     <div className="container">
@@ -82,9 +87,52 @@ function Detail(props) {
             홈으로
           </button>
         </div>
+
+        <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+          <Nav.Item>
+            <Nav.Link
+              eventKey="link-0"
+              onClick={() => {
+                누른탭변경(0);
+                스위치변경(false);
+              }}
+            >
+              Active
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              eventKey="link-1"
+              onClick={() => {
+                누른탭변경(1);
+                스위치변경(false);
+              }}
+            >
+              Option 2
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+
+        <CSSTransition in={스위치} classNames="wow" timeout={500}>
+          <TabContent 누른탭={누른탭} 스위치변경={스위치변경}></TabContent>
+        </CSSTransition>
       </div>
     </div>
   );
+}
+
+function TabContent(props) {
+  useEffect(() => {
+    props.스위치변경(true);
+  });
+
+  if (props.누른탭 === 0) {
+    return <div>0번째 내용입니다</div>;
+  } else if (props.누른탭 === 1) {
+    return <div>1번째 내용입니다</div>;
+  } else if (props.누른탭 === 2) {
+    return <div>2번째 내용입니다</div>;
+  }
 }
 
 function Info(props) {

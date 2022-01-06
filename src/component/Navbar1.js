@@ -12,8 +12,8 @@ function Navbar1() {
             <Nav.Link as={Link} to="/">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/detail">
-              Detail
+            <Nav.Link as={Link} to="/cart">
+              Cart
             </Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

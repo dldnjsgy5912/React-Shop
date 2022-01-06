@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import data from './data';
 import Form from 'react-bootstrap/Form';
+
 // or less ideally
 import React, { useRef, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -13,7 +14,9 @@ import Navbar1 from './component/Navbar1';
 import Jumbotron from './component/Jumbotron';
 import Detail from './component/Detail';
 import Card from './component/Card';
+import Cart from './component/Cart';
 
+// context API
 export let 재고context = React.createContext();
 
 function App() {
@@ -137,6 +140,10 @@ function App() {
           <재고context.Provider value={재고}>
             <Detail 신발들={신발들} 재고={재고} 재고변경={재고변경}></Detail>
           </재고context.Provider>
+        </Route>
+
+        <Route path="/cart">
+          <Cart></Cart>
         </Route>
       </Switch>
     </div>
