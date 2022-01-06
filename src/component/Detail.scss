@@ -4,15 +4,6 @@ $메인색상: #ff0000;
   color: $메인색상;
 }
 
-// div.container {
-//   h4 {
-//     color: blue;
-//   }
-//   p {
-//     color: green;
-//   }
-// }
-
 @mixin 함수() {
   background-color: #eeeeee;
   padding: 20px;
