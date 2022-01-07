@@ -26,6 +26,8 @@ function App() {
 
   let [로딩, 로딩변경] = useState(false);
 
+  let [버튼, 버튼변경] = useState(true);
+
   function 정렬이벤트(e) {
     if (e.target.value == '가격낮은순') {
       let copy = [...신발들];
@@ -108,31 +110,32 @@ function App() {
 
             {로딩 ? <h1>로딩중입니다</h1> : null}
 
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                //로딩중이라는 ui 띄움
-                로딩변경(true);
-                //서버에게 보냄 ex) 로그인등
-                // axios.post('서버url', { id: 'won', pw: 123 });
-
-                axios
-                  .get('https://codingapple1.github.io/shop/data2.json')
-                  .then((result) => {
-                    //로딩중이라는 ui 안보이게 처리
-                    로딩변경(false);
-
-                    신발들변경([...신발들, ...result.data]);
-                  })
-                  .catch(() => {
-                    //로딩중이라는 ui 안보이게 처리
-                    로딩변경(false);
-                    console.log('실패');
-                  });
-              }}
-            >
-              더보기
-            </button>
+            {버튼 ? (
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  //로딩중이라는 ui 띄움
+                  로딩변경(true);
+                  //서버에게 보냄 ex) 로그인등
+                  // axios.post('서버url', { id: 'won', pw: 123 });
+                  버튼변경(false);
+                  axios
+                    .get('https://codingapple1.github.io/shop/data2.json')
+                    .then((result) => {
+                      //로딩중이라는 ui 안보이게 처리
+                      로딩변경(false);
+                      신발들변경([...신발들, ...result.data]);
+                    })
+                    .catch(() => {
+                      //로딩중이라는 ui 안보이게 처리
+                      로딩변경(false);
+                      console.log('실패');
+                    });
+                }}
+              >
+                더보기
+              </button>
+            ) : null}
           </div>
         </Route>
 
