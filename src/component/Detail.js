@@ -37,7 +37,7 @@ function Detail(props) {
 
   let history = useHistory();
 
-  let 찾은상품 = props.신발들.find((신발) => {
+  const 찾은상품 = props.신발들.find((신발) => {
     return 신발.id == id;
   });
 

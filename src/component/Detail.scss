@@ -37,4 +37,5 @@ $메인색상: #ff0000;
 .my-alert-red {
   @extend .my-alert;
   background-color: #ffe591;
+  transition: all 500ms;
 }

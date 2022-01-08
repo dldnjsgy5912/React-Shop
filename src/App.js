@@ -20,13 +20,13 @@ import Cart from './component/Cart';
 export let 재고context = React.createContext();
 
 function App() {
-  let [신발들, 신발들변경] = useState(data);
+  const [신발들, 신발들변경] = useState(data);
 
-  let [재고, 재고변경] = useState([10, 11, 12]);
+  const [재고, 재고변경] = useState([10, 11, 12]);
 
-  let [로딩, 로딩변경] = useState(false);
+  const [로딩, 로딩변경] = useState(false);
 
-  let [버튼, 버튼변경] = useState(true);
+  const [버튼, 버튼변경] = useState(true);
 
   function 정렬이벤트(e) {
     if (e.target.value == '가격낮은순') {
@@ -60,9 +60,9 @@ function App() {
     }
   }
 
-  let [인풋, 인풋설정] = useState('');
+  const [인풋, 인풋설정] = useState('');
 
-  let 포커스 = useRef();
+  const 포커스 = useRef();
 
   return (
     <div className="App">
