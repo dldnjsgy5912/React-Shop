@@ -9,15 +9,43 @@ import { BrowserRouter } from 'react-router-dom';
 
 // redux 상태관리 용이
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 
-let store = createStore(() => {
-  return [
-    { id: 0, name: '멋진신발', quan: 2 },
-    { id: 1, name: '이쁜신발', quan: 5 },
-    { id: 2, name: '웃긴신발', quan: 10 },
-  ];
-});
+const 초기값 = [
+  { id: 0, name: '멋진신발', quan: 2 },
+  { id: 1, name: '이쁜신발', quan: 5 },
+  { id: 2, name: '웃긴신발', quan: 10 },
+];
+
+function reducer(state = 초기값, 액션) {
+  if (액션.type === '항목추가') {
+    let copy = [...초기값];
+    copy.push(액션.payload);
+    return copy;
+  } else if (액션.type === '수량증가') {
+    let copy = [...초기값];
+    copy[0].quan++;
+    return copy;
+  } else if (액션.type === '수량감소') {
+    let copy = [...초기값];
+    copy[0].quan--;
+    return copy;
+  } else {
+    return state;
+  }
+}
+
+const alert초기값 = true;
+
+function reducer2(state = alert초기값, 액션) {
+  if (액션.type === '모달닫기') {
+    return (state = false);
+  } else {
+    return state;
+  }
+}
+
+const store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>
