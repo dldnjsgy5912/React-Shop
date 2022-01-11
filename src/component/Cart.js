@@ -1,8 +1,12 @@
-import React from 'react';
 import { Table } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-function Cart(props) {
+function Cart() {
+  const 상품목록 = useSelector((state) => state.reducer);
+  const dispatch = useDispatch();
+
+  const alert열렸니 = useSelector((state) => state.reducer2);
+
   return (
     <div>
       <Table responsive>
@@ -15,9 +19,9 @@ function Cart(props) {
           </tr>
         </thead>
         <tbody>
-          {props.상품목록.map((상품, i) => {
+          {상품목록.map((상품, i) => {
             return (
-              <tr>
+              <tr key={i}>
                 <td>{i}</td>
                 <td>{상품.id}</td>
                 <td>{상품.name}</td>
@@ -25,14 +29,14 @@ function Cart(props) {
                 <td>
                   <button
                     onClick={() => {
-                      props.dispatch({ type: '수량증가' });
+                      dispatch({ type: '수량증가', payload: 상품.id });
                     }}
                   >
                     +
                   </button>
                   <button
                     onClick={() => {
-                      props.dispatch({ type: '수량감소' });
+                      dispatch({ type: '수량감소', payload: 상품.id });
                     }}
                   >
                     -
@@ -44,12 +48,12 @@ function Cart(props) {
         </tbody>
       </Table>
 
-      {props.alert열렸니 ? (
+      {alert열렸니 ? (
         <div className="my-alert">
           <p>지금 구매하시면 신규할인 20%</p>
           <button
             onClick={() => {
-              props.dispatch({ type: '모달닫기' });
+              dispatch({ type: '모달닫기' });
             }}
           >
             닫기
@@ -60,12 +64,12 @@ function Cart(props) {
   );
 }
 
-function 함수명(state) {
-  return {
-    상품목록: state.reducer,
-    alert열렸니: state.reducer2,
-  };
-}
+// function 함수명(state) {
+//   return {
+//     상품목록: state.reducer,
+//     alert열렸니: state.reducer2,
+//   };
+// }
 
-export default connect(함수명)(Cart);
-// export default Cart;
+// export default connect(함수명)(Cart);
+export default Cart;

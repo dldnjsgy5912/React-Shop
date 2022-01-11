@@ -7,7 +7,7 @@ import './Detail.scss';
 import { 재고context } from '../App';
 import { Nav } from 'react-bootstrap';
 import { CSSTransition } from 'react-transition-group';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 let 박스 = styled.div`
   padding: 20px;
@@ -47,6 +47,8 @@ function Detail(props) {
 
   let [스위치, 스위치변경] = useState(false);
 
+  const dispatch = useDispatch();
+
   return (
     <div className="container">
       <박스>
@@ -69,23 +71,16 @@ function Detail(props) {
           <p>{찾은상품.price}</p>
           <Info 재고={props.재고} 찾은상품={찾은상품}></Info>
           <p>{재고[찾은상품.id]}</p>
-          <input
-            type="number"
-            onChange={(e) => {
-              console.log(e.target.value);
-              let copy = [...props.재고];
-              copy[찾은상품.id] - e.target.value;
-              props.재고변경(copy);
-            }}
-          ></input>
           <button
             className="btn btn-danger"
             onClick={() => {
               let copy = [...props.재고];
               copy[찾은상품.id]--;
               props.재고변경(copy);
-
-              props.dispatch({ type: '항목추가', payload: { id: 찾은상품.id, name: `${찾은상품.title}`, quan: 재고[찾은상품.id] } });
+              dispatch({
+                type: '항목추가',
+                데이터: { id: 찾은상품.id, name: `${찾은상품.title}`, quan: 1 },
+              });
               history.push('/cart');
             }}
           >
@@ -153,10 +148,12 @@ function Info(props) {
   return <p>재고 : {props.재고[props.찾은상품.id]}</p>;
 }
 
-function 함수명(state) {
-  return {
-    상품목록: state.reducer,
-    alert열렸니: state.reducer2,
-  };
-}
-export default connect(함수명)(Detail);
+// function 함수명(state) {
+//   return {
+//     상품목록: state.reducer,
+//     alert열렸니: state.reducer2,
+//   };
+// }
+// export default connect(함수명)(Detail);
+
+export default Detail;

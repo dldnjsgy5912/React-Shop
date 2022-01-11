@@ -22,7 +22,7 @@ export let 재고context = React.createContext();
 function App() {
   const [신발들, 신발들변경] = useState(data);
 
-  const [재고, 재고변경] = useState([10, 11, 12]);
+  const [재고, 재고변경] = useState([10, 11, 12, 10, 11, 12]);
 
   const [로딩, 로딩변경] = useState(false);
 
@@ -104,7 +104,7 @@ function App() {
           <div className="container">
             <div className="row">
               {신발들.map((신발, i) => {
-                return <Card 신발들={신발들[i]} key={i} i={i} />;
+                return <Card 신발들={신발들[i]} key={i} />;
               })}
             </div>
 
