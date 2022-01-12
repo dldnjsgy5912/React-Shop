@@ -29,17 +29,24 @@ function Cart() {
                 <td>
                   <button
                     onClick={() => {
-                      dispatch({ type: '수량증가', payload: 상품.id });
+                      dispatch({ type: '수량증가', payload: i });
                     }}
                   >
                     +
                   </button>
                   <button
                     onClick={() => {
-                      dispatch({ type: '수량감소', payload: 상품.id });
+                      dispatch({ type: '수량감소', payload: i });
                     }}
                   >
                     -
+                  </button>
+                  <button
+                    onClick={() => {
+                      dispatch({ type: '항목제거', payload: i });
+                    }}
+                  >
+                    삭제
                   </button>
                 </td>
               </tr>
@@ -48,7 +55,7 @@ function Cart() {
         </tbody>
       </Table>
 
-      {alert열렸니 ? (
+      {alert열렸니 && (
         <div className="my-alert">
           <p>지금 구매하시면 신규할인 20%</p>
           <button
@@ -59,7 +66,7 @@ function Cart() {
             닫기
           </button>
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
