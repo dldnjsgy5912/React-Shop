@@ -43,11 +43,11 @@ function Detail(props) {
     return 신발.id == id;
   });
 
-  let [누른탭, 누른탭변경] = useState(0);
-
   let [스위치, 스위치변경] = useState(false);
 
   const dispatch = useDispatch();
+
+  const [현재상태, 현재상태변경] = useState('info');
 
   return (
     <div className="container">
@@ -77,10 +77,12 @@ function Detail(props) {
               let copy = [...props.재고];
               copy[찾은상품.id]--;
               props.재고변경(copy);
+
               dispatch({
                 type: '항목추가',
                 데이터: { id: 찾은상품.id, name: `${찾은상품.title}`, quan: 1 },
               });
+
               history.push('/cart');
             }}
           >
@@ -102,8 +104,8 @@ function Detail(props) {
             <Nav.Link
               eventKey="link-0"
               onClick={() => {
-                누른탭변경(0);
                 스위치변경(false);
+                현재상태변경('info');
               }}
             >
               Active
@@ -113,8 +115,8 @@ function Detail(props) {
             <Nav.Link
               eventKey="link-1"
               onClick={() => {
-                누른탭변경(1);
                 스위치변경(false);
+                현재상태변경('shipping');
               }}
             >
               Option 2
@@ -123,7 +125,7 @@ function Detail(props) {
         </Nav>
 
         <CSSTransition in={스위치} classNames="wow" timeout={500}>
-          <TabContent 누른탭={누른탭} 스위치변경={스위치변경}></TabContent>
+          <TabContent 현재상태={현재상태} 현재상태변경={현재상태변경} 스위치변경={스위치변경}></TabContent>
         </CSSTransition>
       </div>
     </div>
@@ -135,13 +137,16 @@ function TabContent(props) {
     props.스위치변경(true);
   });
 
-  if (props.누른탭 === 0) {
-    return <div>0번째 내용입니다</div>;
-  } else if (props.누른탭 === 1) {
-    return <div>1번째 내용입니다</div>;
-  } else if (props.누른탭 === 2) {
-    return <div>2번째 내용입니다</div>;
-  }
+  return (
+    <div>
+      {
+        {
+          info: <p>첫번째 페이지</p>,
+          shipping: <p>두번째 페이지</p>,
+        }[props.현재상태]
+      }
+    </div>
+  );
 }
 
 function Info(props) {

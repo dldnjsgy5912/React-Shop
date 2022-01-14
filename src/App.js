@@ -5,16 +5,24 @@ import data from './data';
 import Form from 'react-bootstrap/Form';
 
 // or less ideally
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 // component
 import Navbar1 from './component/Navbar1';
 import Jumbotron from './component/Jumbotron';
-import Detail from './component/Detail';
+// import Detail from './component/Detail';
+const Detail = lazy(() => {
+  return import('./component/Detail');
+});
+
 import Card from './component/Card';
-import Cart from './component/Cart';
+
+// import Cart from './component/Cart';
+const Cart = lazy(() => {
+  return import('./component/Cart');
+});
 
 // context API
 export let 재고context = React.createContext();
@@ -27,6 +35,10 @@ function App() {
   const [로딩, 로딩변경] = useState(false);
 
   const [버튼, 버튼변경] = useState(true);
+
+  const [인풋, 인풋설정] = useState('');
+
+  const 포커스 = useRef();
 
   function 정렬이벤트(e) {
     if (e.target.value == '가격낮은순') {
@@ -60,15 +72,30 @@ function App() {
     }
   }
 
-  const [인풋, 인풋설정] = useState('');
+  // const [age, setage] = useState(20);
 
-  const 포커스 = useRef();
+  // const [count, setcount] = useState(0);
+
+  // useEffect(() => {
+  //   if (count != 0 && count < 3) {
+  //     setage(age + 1);
+  //   }
+  // }, [count]);
 
   return (
     <div className="App">
       {/* header */}
       <Navbar1></Navbar1>
-
+      {/* <div>
+        <div>안녕하십니까 전 {age}</div>
+        <button
+          onClick={() => {
+            setcount(count + 1);
+          }}
+        >
+          누르면 한살먹기
+        </button>
+      </div> */}
       {/* main */}
       <Switch>
         <Route exact path="/">
@@ -81,7 +108,7 @@ function App() {
             <option value="이름순">이름순</option>
           </Form.Select>
 
-          <input
+          {/* <input
             type="text"
             value={인풋}
             onChange={(e) => {
@@ -99,7 +126,7 @@ function App() {
             초기화
           </button>
 
-          <p>결과:{인풋}</p>
+          <p>결과:{인풋}</p> */}
 
           <div className="container">
             <div className="row">
@@ -141,12 +168,16 @@ function App() {
 
         <Route path="/detail/:id">
           <재고context.Provider value={재고}>
-            <Detail 신발들={신발들} 재고={재고} 재고변경={재고변경}></Detail>
+            <Suspense fallback={<div>로딩중이에요</div>}>
+              <Detail 신발들={신발들} 재고={재고} 재고변경={재고변경}></Detail>
+            </Suspense>
           </재고context.Provider>
         </Route>
 
         <Route path="/cart">
-          <Cart></Cart>
+          <Suspense fallback={<div>로딩중이에요</div>}>
+            <Cart></Cart>
+          </Suspense>
         </Route>
       </Switch>
     </div>
